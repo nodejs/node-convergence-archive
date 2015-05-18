@@ -1,9 +1,5 @@
 # Deprecation Policy
 
-Any undocumented API or function is subject to change at any time.  Only documented APIs are subject to the following 
-policy.
-
-
 ## Stage 1
 
 1. The technical committee decides to deprecate an officially supported API.  
