@@ -12,7 +12,7 @@ suggested replacement API to use, if there is one.
 
 ## Stage 2
 
-1. During the third month since the release of the deprecated API, the API should be deleted.  The 
+1. During the next major release since the release of the deprecated API, the API should be deleted.  The 
 related issue from step 5 stage 1 is closed.
 2. The API documentation is updated to reflect that the API functionality has been deleted.
 3. Release notes are created to guide developers on the breaking change and how to upgrade.
