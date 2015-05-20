@@ -27,6 +27,9 @@ back in to the TC.
 * [Roadmap](#roadmap)
 * [Docker](#docker)
 * [Addon API](#addon-api)
+* [Benchmarking](#benchmarking)
+* [Internationalization](#internationalization)
+* [Post Mortem Debugging](#post-mortem-debugging)
 * [Starting a Working Group](#starting-a-wg)
 * [Bootstrap Governance](#bootstrap-governance)
 
@@ -204,6 +207,47 @@ Their responsibilities are:
 
 The current members can be found in their
 [README](https://github.com/iojs/nan#collaborators).
+
+### [Benchmarking](https://github.com/nodejs/benchmarking)
+
+The Benchmark working group's purpose is to gain consensus for an agreed set of benchmarks that can be used to:
+
+1. track and evangelize performance gains made between Node releases
+2. avoid performance regressions between releases
+
+Its responsibilities are:
+
+1. Identify 1 or more benchmarks that reflect customer usage.  Likely need more than one to cover typical Node use cases including low-latency and high concurrency
+2. Work to get community consensus on the list chosen
+3. Add regular execution of chosen benchmarks to Node builds
+4. Track/publicize performance between builds/releases
+
+
+AcmeAir is proposed as one of the benchmark to consider: https://github.com/acmeair/acmeair-nodejs
+
+### [Internationalization](https://github.com/nodejs/internationalization)
+
+The Intl Working Group is dedicated to support and improvement of
+internationalization (i18n) and localization (l10n) in Node.  Responsibilities
+include:
+
+* Reviewing the addition or modification of APIs and features within Node that
+  support i18n / l10n.
+* Addressing i18n / l10n issues in the issue tracker.
+* Authoring and editing i18n / l10n related API documentation
+* Working to ensure alignment between Node and V8 Intl implementation and
+  EcmaScript i18n standards
+* Working to evolve the current state of the Intl API within Node and
+  EcmaScript.
+
+
+### [Post Mortem Debugging](https://github.com/nodejs/postmortem)
+
+The Post Mortem Diagnostics working group is dedicated to support and improvement of port mortem debugging for Node.  It seeks to provide the APIs/tools needed to generate dumps when required and to use these dumps to be able to debug issues. Responsibilities include:
+
+1. Defining and adding interfaces/APIs in order to allow dumps to be generated when needed
+2. Defining and adding common structures to the dumps generated in order to support tools that want to introspect those dumps
+
 
 ## Starting a WG
 
