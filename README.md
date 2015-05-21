@@ -10,7 +10,7 @@ Governance and Developer Policy for the soon-to-be-launched Node.js
 Foundation:
 
 * https://github.com/joyent/nodejs-advisory-board/tree/master/governance-proposal
-* http://github.com/jasnell/dev-policy
+* http://github.com/nodejs/dev-policy
 
 This project is operating with the oversight of the joint Node.js and io.js
 core technical teams.
