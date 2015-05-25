@@ -210,7 +210,7 @@ The current members can be found in their
 
 ### [Benchmarking](https://github.com/nodejs/benchmarking)
 
-The Benchmark working group's purpose is to gain consensus for an agreed set of benchmarks that can be used to:
+The Benchmarks working group's purpose is to gain consensus for an agreed set of benchmarks that can be used to:
 
 1. track and evangelize performance gains made between Node releases
 2. avoid performance regressions between releases
@@ -223,7 +223,7 @@ Its responsibilities are:
 4. Track/publicize performance between builds/releases
 
 
-AcmeAir is proposed as one of the benchmark to consider: https://github.com/acmeair/acmeair-nodejs
+AcmeAir is proposed as one of the benchmarks to consider: https://github.com/acmeair/acmeair-nodejs
 
 ### [Internationalization](https://github.com/nodejs/internationalization)
 
