@@ -1,33 +1,33 @@
-io.js Release Process
+Node.js Release Process
 =====================
 
-This document describes the technical aspects of the io.js release process. The intended audience is those who have been authorized by the Technical Committee (TC) to create, promote and sign official release builds for io.js, hosted on <https://iojs.org>.
+This document describes the technical aspects of the Node.js release process. The intended audience is those who have been authorized by the Technical Committee (TC) to create, promote and sign official release builds for Node.js, hosted on <https://nodejs.org>.
 
 ## Who can make a release?
 
-Release authorization is given by the io.js TC. Once authorized, an individual must be have the following:
+Release authorization is given by the Node.js TC. Once authorized, an individual must be have the following:
 
 ### 1. Jenkins Release Access
 
 There are three relevant Jenkins jobs that should be used for a release flow:
 
-**a.** **[iojs+any-pr+multi](https://jenkins-iojs.nodesource.com/job/iojs+any-pr+multi/)** is used for a final full-test run to ensure that the current *HEAD* is stable.
+**a.** **[node+any-pr+multi](https://jenkins-iojs.nodesource.com/job/iojs+any-pr+multi/)** is used for a final full-test run to ensure that the current *HEAD* is stable.
 
-**b.** (optional) **[iojs+release+nightly](https://jenkins-iojs.nodesource.com/job/iojs+release+nightly/)** can be used to create a nightly release for the current *HEAD* if public test releases are required. Builds triggered with this job are published straight to <http://iojs.org/download/nightly/> and are available for public download.
+**b.** (optional) **[node+release+nightly](https://jenkins-iojs.nodesource.com/job/iojs+release+nightly/)** can be used to create a nightly release for the current *HEAD* if public test releases are required. Builds triggered with this job are published straight to <http://nodejs.org/download/nightly/> and are available for public download.
 
-**c.** **[iojs+release](https://jenkins-iojs.nodesource.com/job/iojs+release/)** does all of the work to build all required release assets. Promotion of the release files is a manual step once they are ready (see below).
+**c.** **[node+release](https://jenkins-iojs.nodesource.com/job/iojs+release/)** does all of the work to build all required release assets. Promotion of the release files is a manual step once they are ready (see below).
 
-The [io.js build team](https://github.com/nodejs/build) is able to provide this access to individuals authorized by the TC.
+The [Node.js build team](https://github.com/nodejs/build) is able to provide this access to individuals authorized by the TC.
  
-### 2. <iojs.org> Access
+### 2. <nodejs.org> Access
 
-The _dist_ user on iojs.org controls the assets available in <http://iojs.org/download/> (note that <http://iojs.org/dist/> is an alias for <https://iojs.org/download/release/>).
+The _dist_ user on nodejs.org controls the assets available in <http://nodejs.org/download/> (note that <http://nodejs.org/dist/> is an alias for <https://nodejs.org/download/release/>).
 
 The Jenkins release build slaves upload their artefacts to the web server as the _staging_ user, the _dist_ user has access to move these assets to public access (the _staging_ user does not, for security purposes).
 
 Nightly builds are promoted automatically on the server by a cron task for the _dist_ user.
 
-Release builds require manual promotion by an individual with SSH access to the server as the _dist_ user. The [io.js build team](https://github.com/nodejs/build) is able to provide this access to individuals authorized by the TC.
+Release builds require manual promotion by an individual with SSH access to the server as the _dist_ user. The [Node.js build team](https://github.com/nodejs/build) is able to provide this access to individuals authorized by the TC.
 
 ### 3. A Publicly Listed GPG Key
 
@@ -39,7 +39,7 @@ The GPG keys should be fetchable from a known third-party keyserver, currently t
 gpg --keyserver pool.sks-keyservers.net --recv-keys <FINGERPRINT>
 ```
 
-Additionally, full GPG key fingerprints for individuals authorized to release should be listed in the io.js GitHub README.md file.
+Additionally, full GPG key fingerprints for individuals authorized to release should be listed in the Node.js GitHub README.md file.
 
 ## How to create a release
 
@@ -50,11 +50,11 @@ Notes:
 
 ### 1. Ensure that HEAD Is Stable
 
-Run a **[iojs+any-pr+multi](https://jenkins-iojs.nodesource.com/job/iojs+any-pr+multi/)** test run to ensure that the build is stable and the HEAD commit is ready for release.
+Run a **[node+any-pr+multi](https://jenkins-iojs.nodesource.com/job/iojs+any-pr+multi/)** test run to ensure that the build is stable and the HEAD commit is ready for release.
 
 ### 2. Produce a Nightly Build _(optional)_
 
-If there is reason to produce a test release for the purpose of having others try out installers or specifics of builds, produce a nightly build using **[iojs+release+nightly](https://jenkins-iojs.nodesource.com/job/iojs+release+nightly/)** and wait for it to drop in <http://iojs.org/download/nightly/>.
+If there is reason to produce a test release for the purpose of having others try out installers or specifics of builds, produce a nightly build using **[node+release+nightly](https://jenkins-iojs.nodesource.com/job/iojs+release+nightly/)** and wait for it to drop in <http://nodejs.org/download/nightly/>.
 
 This is particularly recommended if there has been recent work relating to the OS X or Windows installers as they are not tested in any way by CI.
 
@@ -123,7 +123,7 @@ The _CHANGELOG.md_ and _src/node_version.h_ changes should be the final commit t
 When committing these to git, use the following message format:
 
 ```
-YYYY-MM-DD io.js vx.y.z Release
+YYYY-MM-DD Node.js vx.y.z Release
 
 Notable changes:
 
@@ -135,7 +135,7 @@ Notable changes:
 Tag the release as <b><code>vx.y.z</code></b> and sign **using the same GPG key that will be used to sign SHASUMS256.txt**.
 
 ```
-git tag -sm 'YYYY-MM-DD io.js vz.y.x Release' vx.y.z
+git tag -sm 'YYYY-MM-DD Node.js vz.y.x Release' vx.y.z
 ```
 
 ### 8. Set Up For the Next Release
@@ -164,7 +164,7 @@ git push origin branch vx.y.z
 
 ### 9. Produce Release Builds
 
-Use **[iojs+release](https://jenkins-iojs.nodesource.com/job/iojs+release/)** to produce release artefacts. Enter the "vx.y.z" version string for this release and it will fetch your tagged commit.
+Use **[node+release](https://jenkins-iojs.nodesource.com/job/iojs+release/)** to produce release artefacts. Enter the "vx.y.z" version string for this release and it will fetch your tagged commit.
 
 Artefacts from each slave are uploaded to Jenkins and are available if further testing is required. Use this opportunity particularly to test OS X and Windows installers if there are any concerns. Click through to the individual slaves for a run to find the artefacts. For example, the Windows 64-bit .msi file for v1.0.4 can be found [here](https://jenkins-iojs.nodesource.com/job/iojs+release/20/nodes=iojs-win2008r2-release-x64/).
 
@@ -198,7 +198,7 @@ If you didn't wait for ARM builds in the previous step before promoting the rele
 
 ### 11. Check the Release
 
-Your release should be available at <https://iojs.org/dist/vx.y.z/> and also <https://iojs.org/dist/latest/>. Check that the appropriate files are in place, you may also want to check that the binaries are working as appropriate and have the right internal version strings. Check that the API docs are available at <https://iojs.org/api/>. Check that the release catalog files are correct at <https://iojs.org/dist/index.tab> and <https://iojs.org/dist/index.json>.
+Your release should be available at <https://nodejs.org/dist/vx.y.z/> and also <https://nodejs.org/dist/latest/>. Check that the appropriate files are in place, you may also want to check that the binaries are working as appropriate and have the right internal version strings. Check that the API docs are available at <https://nodejs.org/api/>. Check that the release catalog files are correct at <https://nodejs.org/dist/index.tab> and <https://nodejs.org/dist/index.json>.
 
 ### 12. Announce
 

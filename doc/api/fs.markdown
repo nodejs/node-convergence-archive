@@ -72,7 +72,7 @@ site, set the NODE_DEBUG environment variable:
     }
     bad();
 
-    $ env NODE_DEBUG=fs iojs script.js
+    $ env NODE_DEBUG=fs node script.js
     fs.js:66
             throw err;
                   ^
@@ -511,7 +511,7 @@ to `'utf8'`.
 
 Example:
 
-    fs.writeFile('message.txt', 'Hello io.js', function (err) {
+    fs.writeFile('message.txt', 'Hello Node.js', function (err) {
       if (err) throw err;
       console.log('It\'s saved!');
     });
