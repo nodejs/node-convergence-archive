@@ -1,3 +1,4 @@
+'use strict';
 var common = require('../common');
 
 if (!common.hasCrypto) {
@@ -13,7 +14,7 @@ var path = require('path');
 var cert = fs.readFileSync(path.join(common.fixturesDir, 'test_cert.pem'));
 var key = fs.readFileSync(path.join(common.fixturesDir, 'test_key.pem'));
 
-// https://github.com/iojs/io.js/issues/1489
+// https://github.com/nodejs/io.js/issues/1489
 // tls.connect(options) with no options.host should accept a cert with
 //   CN:'localhost'
 tls.createServer({
@@ -29,6 +30,6 @@ var socket = tls.connect({
     // Error: Hostname/IP doesn't match certificate's altnames:
     //   "Host: undefined. is not cert's CN: localhost"
 }, function() {
-    assert(socket.authorized);
-    process.exit();
+  assert(socket.authorized);
+  process.exit();
 });

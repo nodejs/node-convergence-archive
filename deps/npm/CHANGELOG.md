@@ -1,3 +1,387 @@
+### v2.11.0 (2015-05-21):
+
+For the first time in a very long time, we've added new events to the life
+cycle used by `npm run-script`. Since running `npm version (major|minor|patch)`
+is typically the last thing many developers do before publishing their updated
+packages, it makes sense to add life cycle hooks to run tests or otherwise
+preflight the package before doing a full publish. Thanks, as always, to the
+indefatigable [@watilde](https://github.com/watilde) for yet another great
+usability improvement for npm!
+
+#### FEATURELETS
+
+* [`b07f7c7`](https://github.com/npm/npm/commit/b07f7c7c1e5021730b3c320f1b3a46e70f8a21ff)
+  [#7906](https://github.com/npm/npm/issues/7906)
+  Add new [`scripts`](https://github.com/npm/npm/blob/master/doc/misc/npm-scripts.md) to
+  allow you to run scripts before and after
+  the [`npm version`](https://github.com/npm/npm/blob/master/doc/cli/npm-version.md)
+  command has run. This makes it easy to, for instance, require that your
+  test suite passes before bumping the version by just adding `"preversion":
+  "npm test"` to the scripts section of your `package.json`.
+  ([@watilde](https://github.com/watilde))
+* [`8a46136`](https://github.com/npm/npm/commit/8a46136f42e416cbadb533bcf89d73d681ed421d)
+  [#8185](https://github.com/npm/npm/issues/8185)
+  When we get a "not found" error from the registry, we'll now check to see
+  if the package name you specified is invalid and if so, give you a better
+  error message. ([@thefourtheye](https://github.com/thefourtheye))
+
+#### BUG FIXES
+
+* [`9bcf573`](https://github.com/npm/npm/commit/9bcf5730bd0316f210dafea898afe9103849cea9)
+  [#8324](https://github.com/npm/npm/pull/8324) On Windows, when you've configured a
+  custom `node-gyp`, run it with node itself instead of using the default open action (which
+  is almost never what you want). ([@bangbang93](https://github.com/bangbang93))
+* [`1da9b04`](https://github.com/npm/npm/commit/1da9b0411d3416c7fca17d08cbbcfca7ae86e92d)
+  [#7195](https://github.com/npm/npm/issues/7195)
+  [#7260](https://github.com/npm/npm/issues/7260) `npm-registry-client@6.4.0`:
+  (Re-)allow publication of existing mixed-case packages (part 1).
+  ([@smikes](https://github.com/smikes))
+* [`e926783`](https://github.com/npm/npm/commit/e9267830ab261c751f12723e84d2458ae9238646)
+  [#7195](https://github.com/npm/npm/issues/7195)
+  [#7260](https://github.com/npm/npm/issues/7260)
+  `normalize-package-data@2.2.0`: (Re-)allow publication of existing mixed-case
+  packages (part 2). ([@smikes](https://github.com/smikes))
+
+#### DOCUMENTATION IMPROVEMENTS
+
+* [`f62ee05`](https://github.com/npm/npm/commit/f62ee05333b141539a8e851c620dd2e82ff06860)
+  [#8314](https://github.com/npm/npm/issues/8314) Update the README to warn
+  folks away from using the CLI's internal API. For the love of glob, just use a
+  child process to run the CLI! ([@claycarpenter](https://github.com/claycarpenter))
+* [`1093921`](https://github.com/npm/npm/commit/1093921c04db41ab46db24a170a634a4b2acd8d9)
+  [#8279](https://github.com/npm/npm/pull/8279)
+  Update the documentation to note that, yes, you can publish scoped packages to the
+  public registry now! ([@mantoni](https://github.com/mantoni))
+* [`f87cde5`](https://github.com/npm/npm/commit/f87cde5234a760d3e515ffdaacaed6f5b71dbf44)
+  [#8292](https://github.com/npm/npm/pull/8292)
+  Fix typo in an example and grammar in the description in
+  the [shrinkwrap documentation](https://github.com/npm/npm/blob/master/doc/cli/npm-shrinkwrap.md).
+  ([@vshih](https://github.com/vshih))
+* [`d3526ce`](https://github.com/npm/npm/commit/d3526ceb09a0c29fdb7d4124536ae09057d033e7)
+  Improve the formatting in
+  the [shrinkwrap documentation](https://github.com/npm/npm/blob/master/doc/cli/npm-shrinkwrap.md).
+  ([@othiym23](https://github.com/othiym23))
+* [`19fe6d2`](https://github.com/npm/npm/commit/19fe6d20883e28956ff916fe4dae42d73ee6195b)
+  [#8311](https://github.com/npm/npm/pull/8311)
+  Update [README.md](https://github.com/npm/npm#readme) to use syntax highlighting in
+  its code samples and bits of shell scripts. ([@SimenB](https://github.com/SimenB))
+
+#### DEPENDENCY UPDATES! ALWAYS AND FOREVER!
+
+* [`fc52160`](https://github.com/npm/npm/commit/fc52160d0223226fffe4166f42fdfd3b899b3c1e)
+  [#4700](https://github.com/npm/npm/issues/4700) [#5044](https://github.com/npm/npm/issues/5044)
+  `init-package-json@1.6.0`: Make entering an invalid version while running `npm init` give
+  you an immediate error and prompt you to correct it. ([@watilde](https://github.com/watilde))
+* [`738853e`](https://github.com/npm/npm/commit/738853eb1f55636476a2a410c2c04732eec9d51e)
+  [#7763](https://github.com/npm/npm/issues/7763) `fs-write-stream-atomic@1.0.3`: Fix a bug
+  where errors would not propagate, making error messages unhelpful.
+  ([@iarna](https://github.com/iarna))
+* [`6d74a2d`](https://github.com/npm/npm/commit/6d74a2d2ac7f92750cf6a2cfafae1af23b569098)
+  `npm-package-arg@4.0.1`: Fix tests on windows ([@Bacra](https://github.com)) and with
+  more recent `hosted-git-info`. ([@iarna](https://github.com/iarna))
+* [`50f7178`](https://github.com/npm/npm/commit/50f717852fbf713ef6cbc4e0a9ab42657decbbbd)
+  `hosted-git-info@2.1.4`: Correct spelling in its documentation.
+  ([@iarna](https://github.com/iarna))
+* [`d7956ca`](https://github.com/npm/npm/commit/d7956ca17c057d5383ff0d3fc5cf6ac2940b034d)
+  `glob@5.0.7`: Fix a bug where unusual error conditions could make
+  further use of the module fail. ([@isaacs](https://github.com/isaacs))
+* [`44f7d74`](https://github.com/npm/npm/commit/44f7d74c5d3181d37da7ea7949c86b344153f8d9)
+  `tap@1.1.0`: Update to the most recent tap to get a whole host of bug
+  fixes and integration with [coveralls](https://coveralls.io/).
+  ([@isaacs](https://github.com/isaacs))
+* [`c21e8a8`](https://github.com/npm/npm/commit/c21e8a8d94bcf0ad79dc583ddc53f8366d4813b3)
+  `nock@2.2.0` ([@othiym23](https://github.com/othiym23))
+
+#### LICENSE FILES FOR THE LICENSE GOD
+
+* Add missing ISC license file to package ([@kasicka](https://github.com/kasicka)):
+    * [`aa9908c`](https://github.com/npm/npm/commit/aa9908c20017729673b9d410b77f9a16b7aae8a4) `realize-package-specifier@3.0.1`
+    * [`23a3b1a`](https://github.com/npm/npm/commit/23a3b1a726b9176c70ce0ccf3cd9d25c54429bdf) `fs-vacuum@1.2.6`
+    * [`8e04bba`](https://github.com/npm/npm/commit/8e04bba830d4353d84751d21803cd127c96153a7) `dezalgo@1.0.2`
+    * [`50f7178`](https://github.com/npm/npm/commit/50f717852fbf713ef6cbc4e0a9ab42657decbbbd) `hosted-git-info@2.1.4`
+    * [`6a54917`](https://github.com/npm/npm/commit/6a54917fbd4df995495a95d4b548defd44b77c93) `write-file-atomic@1.1.2`
+    * [`971f92c`](https://github.com/npm/npm/commit/971f92c4a4e5514217d1e4db45d1ccf71a60ff19) `async-some@1.0.2`
+    * [`67b50b7`](https://github.com/npm/npm/commit/67b50b7667a42bb3340a660eb2e617e1a554d2d4) `normalize-git-url@1.0.1`
+
+#### SPDX LICENSE UPDATES
+
+* Switch license to
+  [BSD-2-Clause](http://spdx.org/licenses/BSD-2-Clause.html#licenseText) from
+  plain "BSD" ([@isaacs](https://github.com/isaacs)):
+    * [`efdb733`](https://github.com/npm/npm/commit/efdb73332eeedcad4c609796929070b62abb37ab) `npm-user-validate@0.1.2`
+    * [`e926783`](https://github.com/npm/npm/commit/e9267830ab261c751f12723e84d2458ae9238646) `normalize-package-data@2.2.0`
+* Switch license to [ISC](http://spdx.org/licenses/ISC.html#licenseText) from
+  [BSD](http://spdx.org/licenses/BSD-2-Clause.html#licenseText)
+  ([@isaacs](https://github.com/isaacs)):
+    * [`c300956`](https://github.com/npm/npm/commit/c3009565a964f0ead4ac4ab234b1a458e2365f17) `block-stream@0.0.8`
+    * [`1de1253`](https://github.com/npm/npm/commit/1de125355765fecd31e682ed0ff9d2edbeac0bb0) `lockfile@1.0.1`
+    * [`0d5698a`](https://github.com/npm/npm/commit/0d5698ab132e376c7aec93ae357c274932116220) `osenv@0.1.1`
+    * [`2e84921`](https://github.com/npm/npm/commit/2e84921474e1ffb18de9fce4616e73171fa8046d) `abbrev@1.0.6`
+    * [`872fac9`](https://github.com/npm/npm/commit/872fac9d10c11607e4d0348c08a683b84e64d30b) `chmodr@0.1.1`
+    * [`01eb7f6`](https://github.com/npm/npm/commit/01eb7f60acba584346ad8aae846657899f3b6887) `chownr@0.0.2`
+    * [`294336f`](https://github.com/npm/npm/commit/294336f0f31c7b9fe31a50075ed750db6db134d1) `read@1.0.6`
+    * [`ebdf6a1`](https://github.com/npm/npm/commit/ebdf6a14d17962cdb7128402c53b452f91d44ca7) `graceful-fs@3.0.7`
+* Switch license to [ISC](http://spdx.org/licenses/ISC.html#licenseText) from
+  [MIT](http://spdx.org/licenses/MIT.html#licenseText)
+  ([@isaacs](https://github.com/isaacs)):
+    * [`e5d237f`](https://github.com/npm/npm/commit/e5d237fc0f436dd2a89437ebf8a9632a2e35ccbe) `nopt@3.0.2`
+    * [`79fef14`](https://github.com/npm/npm/commit/79fef1421b78f044980f0d1bf0e97039b6992710) `rimraf@2.3.4`
+    * [`22527da`](https://github.com/npm/npm/commit/22527da4816e7c2746cdc0317c5fb4a85152d554) `minimatch@2.0.8`
+    * [`882ac87`](https://github.com/npm/npm/commit/882ac87a6c4123ca985d7ad4394ea5085e5b0ef5) `lru-cache@2.6.4`
+    * [`9d9d015`](https://github.com/npm/npm/commit/9d9d015a2e972f68664dda54fbb204db28b21ede) `npmlog@1.2.1`
+
+### v2.10.1 (2015-05-14):
+
+#### BUG FIXES & DOCUMENTATION TWEAKS
+
+* [`dc77520`](https://github.com/npm/npm/commit/dc7752013ffce13a3d3f13e518a0052c22fc1158)
+  When getting back a 404 from a request to a private registry that uses a
+  registry path that extends past the root
+  (`http://registry.enterprise.co/path/to/registry`), display the name of the
+  nonexistent package, rather than the first element in the registry API path.
+  Sorry, Artifactory users! ([@hayes](https://github.com/hayes))
+* [`f70dea9`](https://github.com/npm/npm/commit/f70dea9b4766f6eaa55012c3e8087e9cb04fd4ce)
+  Make clearer that `--registry` can be used on a per-publish basis to push a
+  package to a non-default registry. ([@mischkl](https://github.com/mischkl))
+* [`a3e26f5`](https://github.com/npm/npm/commit/a3e26f5b4465991a941a325468ab7725670d2a94)
+  Did you know that GitHub shortcuts can have commit-ishes included
+  (`org/repo#branch`)? They can! ([@iarna](https://github.com/iarna))
+* [`0e2c091`](https://github.com/npm/npm/commit/0e2c091a539b61fdc60423b6bbaaf30c24e4b1b8)
+  Some errors from `readPackage` were being swallowed, potentially leading to
+  invalid package trees on disk. ([@smikes](https://github.com/smikes))
+
+#### DEPENDENCY UPDATES! STILL! MORE! AGAIN!
+
+* [`0b901ad`](https://github.com/npm/npm/commit/0b901ad0811d84dda6ca0755a9adc8d47825edd0)
+  `lru-cache@2.6.3`: Removed some cruft from the published package.
+  ([@isaacs](https://github.com/isaacs))
+* [`d713e0b`](https://github.com/npm/npm/commit/d713e0b14930c563e3fdb6ac6323bae2a8924652)
+  `mkdirp@0.5.1`: Made compliant with `standard`, dropped support for Node 0.6,
+  added (Travis) support for Node 0.12 and io.js.
+  ([@isaacs](https://github.com/isaacs))
+* [`a2d6578`](https://github.com/npm/npm/commit/a2d6578b6554c5c9d48fe2006751759f4da57520)
+  `glob@1.0.3`: Updated to use `tap@1`. ([@isaacs](https://github.com/isaacs))
+* [`64cd1a5`](https://github.com/npm/npm/commit/64cd1a570aaa5f24ccba190948ec9456297c97f5)
+  `fstream@ 1.0.6`: Made compliant with [`standard`](http://npm.im/standard)
+  (done by [@othiym23](https://github.com/othiym23), and then debugged and
+  fixed by [@iarna](https://github.com/iarna)), and license changed to ISC.
+  ([@othiym23](https://github.com/othiym23) /
+  [@iarna](https://github.com/iarna))
+* [`b527a7c`](https://github.com/npm/npm/commit/b527a7c2ba3c4002f443dd2c536ff4ff41a38b86)
+  `which@1.1.1`: Callers can pass in their own `PATH` instead of relying on
+  `process.env`. ([@isaacs](https://github.com/isaacs))
+
+### v2.10.0 (2015-05-8):
+
+#### THE IMPLICATIONS ARE MORE PROFOUND THAN THEY APPEAR
+
+If you've done much development in The Enterprise®™, you know that keeping
+track of software licenses is far more important than one might expect / hope /
+fear. Tracking licenses is a hassle, and while many (if not most) of us have
+(reluctantly) gotten around to setting a license to use by default with all our
+new projects (even if it's just WTFPL), that's about as far as most of us think
+about it. In big enterprise shops, ensuring that projects don't inadvertently
+use software with unacceptably encumbered licenses is serious business, and
+developers spend a surprising (and appalling) amount of time ensuring that
+licensing is covered by writing automated checkers and other license auditing
+tools.
+
+The Linux Foundation has been working on a machine-parseable syntax for license
+expressions in the form of [SPDX](https://spdx.org/), an appropriately
+enterprisey acronym. IP attorney and JavaScript culture hero [Kyle
+Mitchell](http://kemitchell.com/) has put a considerable amount of effort into
+bringing SPDX to JavaScript and Node. He's written
+[`spdx.js`](https://github.com/kemitchell/spdx.js), a JavaScript SPDX
+expression parser, and has integrated it into npm in a few different ways.
+
+For you as a user of npm, this means:
+
+* npm now has proper support for dual licensing in `package.json`, due to
+  SPDX's compound expression syntax. Run `npm help package.json` for details.
+* npm will warn you if the `package.json` for your project is either missing a
+  `"license"` field, or if the value of that field isn't a valid SPDX
+  expression (pro tip: `"BSD"` becomes `"BSD-2-Clause"` in SPDX (unless you
+  really want one of its variants); `"MIT"` and `"ISC"` are fine as-is; the
+  [full list](https://github.com/shinnn/spdx-license-ids/blob/master/spdx-license-ids.json)
+  is its own package).
+* `npm init` now demands that you use a valid SPDX expression when using it
+  interactively (pro tip: I mostly use `npm init -y`, having previously run
+  `npm config set init.license=MIT` / `npm config set init.author.email=foo` /
+  `npm config set init.author.name=me`).
+* The documentation for `package.json` has been updated to tell you how to use
+  the `"license"` field properly with SPDX.
+
+In general, this shouldn't be a big deal for anybody other than people trying
+to run their own automated license validators, but in the long run, if
+everybody switches to this format, many people's lives will be made much
+simpler. I think this is an important improvement for npm and am very thankful
+to Kyle for taking the lead on this. Also, even if you think all of this is
+completely stupid, just [choose a license](http://en.wikipedia.org/wiki/License-free_software)
+anyway. Future you will thank past you someday, unless you are
+[djb](http://cr.yp.to/), in which case you are djb, and more power to you.
+
+* [`8669f7d`](https://github.com/npm/npm/commit/8669f7d88c472ccdd60e140106ac43cca636a648)
+  [#8179](https://github.com/npm/npm/issues/8179) Document how to use SPDX in
+  `license` stanzas in `package.json`, including how to migrate from old busted
+  license declaration arrays to fancy new compound-license clauses.
+  ([@kemitchell](https://github.com/kemitchell))
+* [`98ad98c`](https://github.com/npm/npm/commit/98ad98cb11f3d3ba29a488ef1ab050b066d9c7f6)
+  [#8197](https://github.com/npm/npm/issues/8197) `init-package-json@1.5.0`
+  Ensure that packages bootstrapped with `npm init` use an SPDX-compliant
+  license expression. ([@kemitchell](https://github.com/kemitchell))
+* [`2ad3905`](https://github.com/npm/npm/commit/2ad3905e9139b0be2b22accf707b814469de813e)
+  [#8197](https://github.com/npm/npm/issues/8197)
+  `normalize-package-data@2.1.0`: Warn when a package is missing a license
+  declaration, or using a license expression that isn't valid SPDX.
+  ([@kemitchell](https://github.com/kemitchell))
+* [`127bb73`](https://github.com/npm/npm/commit/127bb73ccccc59a1267851c702d8ebd3f3a97e81)
+  [#8197](https://github.com/npm/npm/issues/8197) `tar@2.1.1`: Switch from
+  `BSD` to `ISC` for license, where the latter is valid SPDX.
+  ([@othiym23](https://github.com/othiym23))
+* [`e9a933a`](https://github.com/npm/npm/commit/e9a933a9148180d9d799f99f4154f5110ff2cace)
+  [#8197](https://github.com/npm/npm/issues/8197) `once@1.3.2`: Switch from
+  `BSD` to `ISC` for license, where the latter is valid SPDX.
+  ([@othiym23](https://github.com/othiym23))
+* [`412401f`](https://github.com/npm/npm/commit/412401fb6a19b18f3e02d97a24d4dafed650c186)
+  [#8197](https://github.com/npm/npm/issues/8197) `semver@4.3.4`: Switch from
+  `BSD` to `ISC` for license, where the latter is valid SPDX.
+  ([@othiym23](https://github.com/othiym23))
+
+As a corollary to the previous changes, I've put some work into making `npm
+install` spew out fewer pointless warnings about missing values in transitive
+dependencies. From now on, npm will only warn you about missing READMEs,
+license fields, and the like for top-level projects (including packages you
+directly install into your application, but we may relax that eventually).
+
+Practically _nobody_ liked having those warnings displayed for child
+dependencies, for the simple reason that there was very little that anybody
+could _do_ about those warnings, unless they happened to be the maintainers of
+those dependencies themselves. Since many, many projects don't have
+SPDX-compliant licenses, the number of warnings reached a level where they ran
+the risk of turning into a block of visual noise that developers (read: me, and
+probably you) would ignore forever.
+
+So I fixed it. If you still want to see the messages about child dependencies,
+they're still there, but have been pushed down a logging level to `info`. You
+can display them by running `npm install -d` or `npm install --loglevel=info`.
+
+* [`eb18245`](https://github.com/npm/npm/commit/eb18245f55fb4cd62a36867744bcd1b7be0a33e2)
+  Only warn on normalization errors for top-level dependencies. Transitive
+  dependency validation warnings are logged at `info` level.
+  ([@othiym23](https://github.com/othiym23))
+
+#### BUG FIXES
+
+* [`e40e809`](https://github.com/npm/npm/commit/e40e8095d2bc9fa4eb8f01aa22067e0068fa8a54)
+  `tap@1.0.1`: TAP: The Next Generation. Fix up many tests to they work
+  properly with the new major version of `node-tap`. Look at all the colors!
+  ([@isaacs](https://github.com/isaacs))
+* [`f9314e9`](https://github.com/npm/npm/commit/f9314e97d26532c0ef2b03e98f3ed300b7cd5026)
+  `nock@1.9.0`: Minor tweaks and bug fixes. ([@pgte](https://github.com/pgte))
+* [`45c2b1a`](https://github.com/npm/npm/commit/45c2b1aaa051733fa352074994ae6e569fd51e8b)
+  [#8187](https://github.com/npm/npm/issues/8187) `npm ls` wasn't properly
+  recognizing dependencies installed from GitHub repositories as git
+  dependencies, and so wasn't displaying them as such.
+  ([@zornme](https://github.com/zornme))
+* [`1ab57c3`](https://github.com/npm/npm/commit/1ab57c38116c0403965c92bf60121f0f251433e4)
+  In some cases, `npm help` was using something that looked like a regular
+  expression where a glob pattern should be used, and vice versa.
+  ([@isaacs](https://github.com/isaacs))
+
+### v2.9.1 (2015-04-30):
+
+#### WOW! MORE GIT FIXES! YOU LOVE THOSE!
+
+The first item below is actually a pretty big deal, as it fixes (with a
+one-word change and a much, much longer test case (thanks again,
+[@iarna](https://github.com/iarna))) a regression that's been around for months
+now. If you're depending on multiple branches of a single git dependency in a
+single project, you probably want to check out `npm@2.9.1` and verify that
+things (again?) work correctly in your project.
+
+* [`178a6ad`](https://github.com/npm/npm/commit/178a6ad540215820d16217465a5f220d8c95a313)
+  [#7202](https://github.com/npm/npm/issues/7202) When caching git
+  dependencies, do so by the whole URL, including the branch name, so that if a
+  single application depends on multiple branches from the same repository (in
+  practice, multiple version tags), every install is of the correct version,
+  instead of reusing whichever branch the caching process happened to check out
+  first.  ([@iarna](https://github.com/iarna))
+* [`63b79cc`](https://github.com/npm/npm/commit/63b79ccde092a9cb3b1f34abe43e1d2ba69c0dbf)
+  [#8084](https://github.com/npm/npm/issues/8084) Ensure that Bitbucket,
+  GitHub, and Gitlab dependencies are installed the same way as non-hosted git
+  dependencies, fixing `npm install --link`.
+  ([@laiso](https://github.com/laiso))
+
+#### DOCUMENTATION FIXES AND TWEAKS
+
+These changes may seem simple and small (except Lin's fix to the package name
+restrictions, which was more an egregious oversight on our part), but cleaner
+documentation makes npm significantly more pleasant to use. I really appreciate
+all the typo fixes, clarifications, and formatting tweaks people send us, and
+am delighted that we get so many of these pull requests. Thanks, everybody!
+
+* [`ca478dc`](https://github.com/npm/npm/commit/ca478dcaa29b8f07cd6fe515a3c4518166819291)
+  [#8137](https://github.com/npm/npm/issues/8137) Somehow, we had failed to
+  clearly document the full restrictions on package names.
+  [@linclark](https://github.com/linclark) has now fixed that, although we will
+  take with us to our graves the reasons why the maximum package name length is 214
+  characters (well, OK, it was that that was the longest name in the registry
+  when we decided to put a cap on the name length).
+  ([@linclark](https://github.com/linclark))
+* [`b574076`](https://github.com/npm/npm/commit/b5740767c320c1eff3576a8d63952534a0fbb936)
+  [#8079](https://github.com/npm/npm/issues/8079) Make the `npm shrinkwrap`
+  documentation use code formatting for examples consistently. It would be
+  great to do this for more commands HINT HINT.
+  ([@RichardLitt](https://github.com/RichardLitt))
+* [`1ff636e`](https://github.com/npm/npm/commit/1ff636e2db3852a53e38c866fed7eafdacd307fc)
+  [#8105](https://github.com/npm/npm/issues/8105) Document that the global
+  `npmrc` goes in `$PREFIX/etc/npmrc`, instead of `$PREFIX/npmrc`.
+  ([@anttti](https://github.com/anttti))
+* [`c3f2f7c`](https://github.com/npm/npm/commit/c3f2f7c299342e1c1eccc55a976a63c607f51621)
+  [#8127](https://github.com/npm/npm/issues/8127) Document how to use `npm run
+  build` directly (hint: it's different from `npm build`!).
+  ([@mikemaccana](https://github.com/mikemaccana))
+* [`873e467`](https://github.com/npm/npm/commit/873e46757e1986761b15353f94580a071adcb383)
+  [#8069](https://github.com/npm/npm/issues/8069) Take the old, dead npm
+  mailing list address out of `package.json`. It seems that people don't have
+  much trouble figuring out how to report errors to npm.
+  ([@robertkowalski](https://github.com/robertkowalski))
+
+#### ENROBUSTIFICATIONMENT
+
+* [`5abfc9c`](https://github.com/npm/npm/commit/5abfc9c9017da714e47a3aece750836b4f9af6a9)
+  [#7973](https://github.com/npm/npm/issues/7973) `npm run-script` completion
+  will only suggest run scripts, instead of including dependencies. If for some
+  reason you still wanted it to suggest dependencies, let us know.
+  ([@mantoni](https://github.com/mantoni))
+* [`4b564f0`](https://github.com/npm/npm/commit/4b564f0ce979dc74c09604f4d46fd25a2ee63804)
+  [#8081](https://github.com/npm/npm/issues/8081) Use `osenv` to parse the
+  environment's `PATH` in a platform-neutral way.
+  ([@watilde](https://github.com/watilde))
+* [`a4b6238`](https://github.com/npm/npm/commit/a4b62387b41848818973eeed056fd5c6570274f3)
+  [#8094](https://github.com/npm/npm/issues/8094) When we refactored the
+  configuration code to split out checking for IPv4 local addresses, we
+  inadvertently completely broke it by failing to return the values. In
+  addition, just the call to `os.getInterfaces()` could throw on systems where
+  querying the network configuration requires elevated privileges (e.g. Amazon
+  Lambda). Add the return, and trap errors so they don't cause npm to explode.
+  Thanks to [@mhart](https://github.com/mhart) for bringing this to our
+  attention! ([@othiym23](https://github.com/othiym23))
+
+#### DEPENDENCY UPDATES WAIT FOR NO SOPHONT
+
+* [`000cd8b`](https://github.com/npm/npm/commit/000cd8b52104942ac3404f0ad0651d82f573da37)
+  `rimraf@2.3.3`: More informative assertions on argument validation failure.
+  ([@isaacs](https://github.com/isaacs))
+* [`530a2e3`](https://github.com/npm/npm/commit/530a2e369128270f3e098f0e9be061533003b0eb)
+  `lru-cache@2.6.2`: Revert to old key access-time behavior, as it was correct
+  all along. ([@isaacs](https://github.com/isaacs))
+* [`d88958c`](https://github.com/npm/npm/commit/d88958ca02ce81b027b9919aec539d0145875a59)
+  `minimatch@2.0.7`: Feature detection and test improvements.
+  ([@isaacs](https://github.com/isaacs))
+* [`3fa39e4`](https://github.com/npm/npm/commit/3fa39e4d492609d5d045033896dcd99f7b875329)
+  `nock@1.7.1` ([@pgte](https://github.com/pgte))
+
 ### v2.9.0 (2015-04-23):
 
 This week was kind of a breather to concentrate on fixing up the tests on the

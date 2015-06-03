@@ -1,3 +1,4 @@
+'use strict';
 var common = require('../common');
 var assert = require('assert');
 
@@ -28,8 +29,9 @@ function run() {
   if (fn) {
     console.log('# %s', fn.name);
     fn(run);
-  } else
+  } else {
     console.log('ok');
+  }
 }
 
 test(function serverTimeout(cb) {
@@ -41,12 +43,13 @@ test(function serverTimeout(cb) {
     // just do nothing, we should get a timeout event.
   });
   server.listen(common.PORT);
-  server.setTimeout(50, function(socket) {
+  var s = server.setTimeout(50, function(socket) {
     caughtTimeout = true;
     socket.destroy();
     server.close();
     cb();
   });
+  assert.ok(s instanceof https.Server);
   https.get({
     port: common.PORT,
     rejectUnauthorized: false

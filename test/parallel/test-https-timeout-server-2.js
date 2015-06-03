@@ -1,3 +1,4 @@
+'use strict';
 
 var common = require('../common');
 var assert = require('assert');
@@ -20,10 +21,11 @@ var options = {
 var server = https.createServer(options, assert.fail);
 
 server.on('secureConnection', function(cleartext) {
-  cleartext.setTimeout(50, function() {
+  var s = cleartext.setTimeout(50, function() {
     cleartext.destroy();
     server.close();
   });
+  assert.ok(s instanceof tls.TLSSocket);
 });
 
 server.listen(common.PORT, function() {

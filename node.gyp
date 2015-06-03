@@ -70,8 +70,10 @@
       'lib/vm.js',
       'lib/zlib.js',
 
+      'lib/internal/child_process.js',
       'lib/internal/freelist.js',
       'lib/internal/smalloc.js',
+      'lib/internal/socket_list.js',
       'lib/internal/repl.js',
     ],
   },
@@ -99,6 +101,7 @@
       'sources': [
         'src/debug-agent.cc',
         'src/async-wrap.cc',
+        'src/env.cc',
         'src/fs_event_wrap.cc',
         'src/cares_wrap.cc',
         'src/handle_wrap.cc',
@@ -627,7 +630,7 @@
     {
       'target_name': 'cctest',
       'type': 'executable',
-      'dependencies': [ 
+      'dependencies': [
         'deps/gtest/gtest.gyp:gtest',
         'deps/v8/tools/gyp/v8.gyp:v8',
         'deps/v8/tools/gyp/v8.gyp:v8_libplatform'

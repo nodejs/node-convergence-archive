@@ -231,6 +231,8 @@ destroyed automatically if they time out.  However, if you assign a
 callback to the Server's `'timeout'` event, then you are responsible
 for handling socket timeouts.
 
+Returns `server`.
+
 ### server.timeout
 
 * {Number} Default = 120000 (2 minutes)
@@ -317,6 +319,8 @@ the server, then sockets are destroyed when they time out.  If you
 assign a handler on the request, the response, or the server's
 `'timeout'` events, then it is your responsibility to handle timed out
 sockets.
+
+Returns `response`.
 
 ### response.statusCode
 
@@ -914,6 +918,8 @@ Aborts a request.  (New since v0.3.8.)
 Once a socket is assigned to this request and is connected
 [socket.setTimeout()][] will be called.
 
+Returns `request`.
+
 ### request.setNoDelay([noDelay])
 
 Once a socket is assigned to this request and is connected
@@ -1003,6 +1009,8 @@ received.  Only populated at the 'end' event.
 
 Calls `message.connection.setTimeout(msecs, callback)`.
 
+Returns `message`.
+
 ### message.method
 
 **Only valid for request obtained from [http.Server][].**
@@ -1060,9 +1068,8 @@ The HTTP response status message (reason phrase). E.G. `OK` or `Internal Server 
 
 The `net.Socket` object associated with the connection.
 
-With HTTPS support, use request.connection.verifyPeer() and
-request.connection.getPeerCertificate() to obtain the client's
-authentication details.
+With HTTPS support, use [request.socket.getPeerCertificate()][] to obtain the
+client's authentication details.
 
 
 ['checkContinue']: #http_event_checkcontinue
@@ -1090,5 +1097,6 @@ authentication details.
 [socket.setKeepAlive()]: net.html#net_socket_setkeepalive_enable_initialdelay
 [socket.setNoDelay()]: net.html#net_socket_setnodelay_nodelay
 [socket.setTimeout()]: net.html#net_socket_settimeout_timeout_callback
+[request.socket.getPeerCertificate()]: tls.html#tls_tlssocket_getpeercertificate_detailed
 [stream.setEncoding()]: stream.html#stream_stream_setencoding_encoding
 [url.parse()]: url.html#url_url_parse_urlstr_parsequerystring_slashesdenotehost

@@ -67,8 +67,8 @@ The options are passed to both the ['net.Socket'](#net_class_net_socket)
 constructor and the ['socket.connect'](#net_socket_connect_options_connectlistener)
 method.
 
-The `connectListener` parameter will be added as an listener for the
-['connect'][] event.
+The `connectListener` parameter will be added as a listener for the
+['connect'][] event once.
 
 Here is an example of a client of the previously described echo server:
 
@@ -100,8 +100,8 @@ supplied `port` and `host`.
 
 If `host` is omitted, `'localhost'` will be assumed.
 
-The `connectListener` parameter will be added as an listener for the
-['connect'][] event.
+The `connectListener` parameter will be added as a listener for the
+['connect'][] event once.
 
 ## net.connect(path[, connectListener])
 ## net.createConnection(path[, connectListener])
@@ -110,8 +110,8 @@ A factory function, which returns a new unix
 ['net.Socket'](#net_class_net_socket) and automatically connects to the
 supplied `path`.
 
-The `connectListener` parameter will be added as an listener for the
-['connect'][] event.
+The `connectListener` parameter will be added as a listener for the
+['connect'][] event once.
 
 ## Class: net.Server
 
@@ -261,11 +261,15 @@ Calling `unref` on a server will allow the program to exit if this is the only
 active server in the event system. If the server is already `unref`d calling
 `unref` again will have no effect.
 
+Returns `server`.
+
 ### server.ref()
 
 Opposite of `unref`, calling `ref` on a previously `unref`d server will *not*
 let the program exit if it's the only server left (the default behavior). If
 the server is `ref`d calling `ref` again will have no effect.
+
+Returns `server`.
 
 ### server.maxConnections
 
@@ -355,7 +359,7 @@ For TCP sockets, `options` argument should be an object which specifies:
   - `localPort`: Local port to bind to for network connections.
 
   - `family` : Version of IP stack. Defaults to `4`.
-  
+
   - `lookup` : Custom lookup function. Defaults to `dns.lookup`.
 
 For local domain sockets, `options` argument should be an object which
@@ -451,12 +455,16 @@ If `timeout` is 0, then the existing idle timeout is disabled.
 The optional `callback` parameter will be added as a one time listener for the
 `'timeout'` event.
 
+Returns `socket`.
+
 ### socket.setNoDelay([noDelay])
 
 Disables the Nagle algorithm. By default TCP connections use the Nagle
 algorithm, they buffer data before sending it off. Setting `true` for
 `noDelay` will immediately fire off data each time `socket.write()` is called.
 `noDelay` defaults to `true`.
+
+Returns `socket`.
 
 ### socket.setKeepAlive([enable][, initialDelay])
 
@@ -468,6 +476,8 @@ Set `initialDelay` (in milliseconds) to set the delay between the last
 data packet received and the first keepalive probe. Setting 0 for
 initialDelay will leave the value unchanged from the default
 (or previous) setting. Defaults to `0`.
+
+Returns `socket`.
 
 ### socket.address()
 
@@ -482,11 +492,15 @@ Calling `unref` on a socket will allow the program to exit if this is the only
 active socket in the event system. If the socket is already `unref`d calling
 `unref` again will have no effect.
 
+Returns `socket`.
+
 ### socket.ref()
 
 Opposite of `unref`, calling `ref` on a previously `unref`d socket will *not*
 let the program exit if it's the only socket left (the default behavior). If
 the socket is `ref`d calling `ref` again will have no effect.
+
+Returns `socket`.
 
 ### socket.remoteAddress
 
