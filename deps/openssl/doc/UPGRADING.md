@@ -1,7 +1,7 @@
-## How to upgrade openssl library in io.js
+## How to upgrade openssl library in Node.js
 
 This document describes the procedure to upgrade openssl from 1.0.1m
-to 1.0.2a in io.js.
+to 1.0.2a in Node.js.
 
 
 ### Build System and Upgrading Overview
@@ -17,16 +17,16 @@ hardware performance according to the type of cpus.
 `Configure TABLE` shows various build parameters that depend on each
 os and arch.
 
-In io.js, build target is defined as `--dest-os` and `--dest-cpu` in
+In Node.js, build target is defined as `--dest-os` and `--dest-cpu` in
 configure options which are different from the one that is defined in
 openssl and it's build system is gyp that is based on python,
 therefore we cannot use the openssl build system directly.
 
-In order to build openssl with gyp in iojs, files of opensslconf.h and
+In order to build openssl with gyp in node, files of opensslconf.h and
 asm are generated in advance for several supported platforms.
 
 Here is a map table to show conf(opensslconf.h) and asm between
-the openssl target and configuration parameters of os and cpu in iojs.
+the openssl target and configuration parameters of os and cpu in node.
 The tested platform in CI are also listed.
 
 | --dest-os | --dest-cpu | conf | asm  | openssl target     | CI |
@@ -74,7 +74,7 @@ build. Furthermore, these perl scripts check the version of assembler
 and generate asm files according to the supported instructions in each
 compiler.
 
-Since perl is not a build requirement in iojs, they all should be
+Since perl is not a build requirement in node, they all should be
 generated in advance and statically stored in the repository. We
 provide two sets of asm files, one is asm_latest(avx2 and addx
 supported) in `deps/openssl/asm` and the other asm_obsolete(without
@@ -91,7 +91,7 @@ https://github.com/openssl/openssl/blob/OpenSSL_1_0_2-stable/crypto/sha/asm/sha5
 otherwise asm_obsolete are used.
 
 The following is the detail instruction steps how to upgrade openssl
-version from 1.0.1m to 1.0.2a in iojs.
+version from 1.0.1m to 1.0.2a in node.
 
 ### 1. Replace openssl source in `deps/openssl/openssl`
 Remove old openssl sources in `deps/openssl/openssl` .
@@ -104,18 +104,18 @@ There are three kinds of private patches to be applied in openssl-1.0.2a.
 
 - The two fixes of assembly error on ia32 win32. masm is no longer
   supported in openssl. We should move to use nasm or yasm in future
-  version of iojs.
+  version of node.
 
 - The fix of openssl-cli built on win. Key press requirement of
   openssl-cli in win causes timeout failures of several tests.
 
 - Backport patches for alt cert feature from openssl-1.1.x. Root certs
-  of 1024bit RSA key length were deprecated in io.js. When a tls
-  server has a cross root cert, io.js client leads CERT_UNTRUSTED
+  of 1024bit RSA key length were deprecated in Node.js. When a tls
+  server has a cross root cert, Node.js client leads CERT_UNTRUSTED
   error because openssl does not find alternate cert chains. This fix
   supports its feature but was made the current master which is
   openssl-1.1.x. We backported them privately into openssl-1.0.2 on
-  iojs.
+  node.
 
 ### 3. Replace openssl header files in `deps/openssl/openssl/include/openssl`
 all header files in `deps/openssl/openssl/include/openssl/*.h` are
@@ -142,7 +142,7 @@ One fix of opensslconf.h is needed in 64-bit MacOS.
 The current openssl release does not use RC4 asm since it explicitly
 specified as `$asm=~s/rc4\-[^:]+//;` in
 https://github.com/openssl/openssl/blob/OpenSSL_1_0_1-stable/Configure#L584
-But iojs has used RC4 asm on MacOS for long time. Fix type of RC4_INT
+But node has used RC4 asm on MacOS for long time. Fix type of RC4_INT
 into `unsigned int` in opensslconf.h of darwin64-x86_64-cc to work on
 the RC4 asm.
 
@@ -154,7 +154,7 @@ be obtained via `Configure TABLE`. Its list is put in the table of
 There is no way to verify all necessary sources automatically. We can
 only carefully look at the source list and compiled objects in
 Makefile of openssl and compare the compiled objects that stored
-stored under `out/Release/obj.target/openssl/deps/openssl/' in iojs.
+stored under `out/Release/obj.target/openssl/deps/openssl/' in node.
 
 ### 6. ASM files for openssl
 We provide two sets of asm files. One is for the latest assembler

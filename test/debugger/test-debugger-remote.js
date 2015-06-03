@@ -9,7 +9,7 @@ var expected = [];
 var scriptToDebug = common.fixturesDir + '/empty.js';
 
 function fail() {
-  assert(0); // `--debug-brk script.js` should not quit
+  assert(0); // `node --debug-brk script.js` should not quit
 }
 
 // running with debug agent

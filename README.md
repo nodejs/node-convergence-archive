@@ -15,4 +15,4 @@ Foundation:
 This project is operating with the oversight of the joint Node.js and io.js
 core technical teams.
 
-Note: The original io.js README.md is temporarily renamed to iojs_README.md.
+Note: The original io.js README.md is temporarily renamed to node_README.md.

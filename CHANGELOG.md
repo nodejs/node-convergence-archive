@@ -1,4 +1,4 @@
-# io.js ChangeLog
+# Node.js ChangeLog
 
 ## 2015-06-01, Version 2.2.1, @rvagg
 

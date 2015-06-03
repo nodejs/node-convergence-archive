@@ -1,7 +1,7 @@
-# io.js core benchmark tests
+# Node.js core benchmark tests
 
 This folder contains benchmark tests to measure the performance for certain
-io.js APIs.
+Node.js APIs.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ There are two ways to run benchmark tests:
 1. Run all tests of a given type, for example, buffers
 
 ```sh
-iojs benchmark/common.js buffers
+node benchmark/common.js buffers
 ```
 
 The above command will find all scripts under `buffers` directory and require
@@ -78,7 +78,7 @@ buffers/buffer-read.js noAssert=false buffer=fast type=UInt16BE millions=1: 244.
 2. Run an individual test, for example, buffer-slice.js
 
 ```sh
-iojs benchmark/buffers/buffer-read.js
+node benchmark/buffers/buffer-read.js
 ```
 The output:
 ```
@@ -95,7 +95,7 @@ This example will run only the first type of url test, with one iteration.
 
 
 ```sh
-iojs benchmark/url/url-parse.js type=one n=1
+node benchmark/url/url-parse.js type=one n=1
 ```
 Output:
 ```

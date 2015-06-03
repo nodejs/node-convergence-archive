@@ -1,40 +1,37 @@
-io.js
+Node.js
 =====
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/iojs/io.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/nodejs/node?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This repository began as a GitHub fork of
 [joyent/node](https://github.com/joyent/node).
 
-io.js contributions, releases, and contributorship are under an
+Node.js contributions, releases, and contributorship are under an
 [open governance model](./GOVERNANCE.md).
 We intend to land, with increasing regularity, releases which are
 compatible with the npm ecosystem that has been built to date for
 Node.js.
 
-## Is it io.js or IO.js or iojs or IOjs or iOjS?
+## Is it Node.js or NODE.js or nodejs or NODEjs?
 
-The official name is **io.js**, which should never be capitalized,
-especially not at the start of a sentence, unless it is being
-displayed in a location that is customarily all-caps (such as
-the title of man pages).
+The official name is **Node.js**.
 
 ## Download
 
 Binaries, installers, and source tarballs are available at
-<https://iojs.org>.
+<https://nodejs.org>.
 
-**Releases** are available at <https://iojs.org/dist/>, listed under
-their version string. The <https://iojs.org/dist/latest/> symlink
+**Releases** are available at <https://nodejs.org/dist/>, listed under
+their version string. The <https://nodejs.org/dist/latest/> symlink
 will point to the latest release directory.
 
 **Nightly** builds are available at
-<https://iojs.org/download/nightly/>, listed under their version
+<https://nodejs.org/download/nightly/>, listed under their version
 string which includes their date (in UTC time) and the commit SHA at
 the HEAD of the release.
 
 **API documentation** is available in each release and nightly
-directory under _docs_. <https://iojs.org/api/> points to the the
+directory under _docs_. <https://nodejs.org/api/> points to the the
 latest version.
 
 ### Verifying Binaries
@@ -45,10 +42,10 @@ download. To check that a downloaded file matches the checksum, run
 it through `sha256sum` with a command such as:
 
 ```
-$ grep iojs-vx.y.z.tar.gz SHASUMS256.txt | sha256sum -c -
+$ grep node-vx.y.z.tar.gz SHASUMS256.txt | sha256sum -c -
 ```
 
-_(Where "iojs-vx.y.z.tar.gz" is the name of the file you have
+_(Where "node-vx.y.z.tar.gz" is the name of the file you have
 downloaded)_
 
 Additionally, releases (not nightlies) have GPG signed copies of
@@ -68,7 +65,7 @@ $ gpg --keyserver pool.sks-keyservers.net \
 _(Include each of the key fingerprints at the end of this command.)_
 
 You can then use `gpg --verify SHASUMS256.txt.asc` to verify that the
-file has been signed by an authorized member of the io.js team.
+file has been signed by an authorized member of the Node.js team.
 
 Once verified, use the SHASUMS256.txt.asc file to get the checksum for
 the binary verification command above.
@@ -116,7 +113,7 @@ $ make doc
 To read the documentation:
 
 ```text
-$ man doc/iojs.1
+$ man doc/node.1
 ```
 
 ### Windows
@@ -255,16 +252,16 @@ as `deps/icu` (You'll have: `deps/icu/source/...`)
 * [CONTRIBUTING.md](./CONTRIBUTING.md)
 * [GOVERNANCE.md](./GOVERNANCE.md)
 * IRC:
-  [#io.js on Freenode.net](http://webchat.freenode.net?channels=io.js&uio=d4)
-* [iojs/io.js on Gitter](https://gitter.im/iojs/io.js)
+  [#node.js on Freenode.net](http://webchat.freenode.net?channels=node.js&uio=d4)
+* [nodejs/node on Gitter](https://gitter.im/nodejs/node)
 
 
 
 ## Current Project Team Members
 
-The io.js project team comprises a group of core collaborators and a sub-group
+The Node.js project team comprises a group of core collaborators and a sub-group
 that forms the _Technical Committee_ (TC) which governs the project. For more
-information about the governance of the io.js project, see
+information about the governance of the Node.js project, see
 [GOVERNANCE.md](./GOVERNANCE.md).
 
 * **Isaac Z. Schlueter** ([@isaacs](https://github.com/isaacs)) &lt;i@izs.me&gt; (Technical Committee)
@@ -301,4 +298,4 @@ information about the governance of the io.js project, see
 * **Yosuke Furukawa** ([@yosuke-furukawa](https://github.com/yosuke-furukawa)) &lt;yosuke.furukawa@gmail.com&gt;
 
 Collaborators follow the [COLLABORATOR_GUIDE.md](./COLLABORATOR_GUIDE.md) in
-maintaining the io.js project.
+maintaining the Node.js project.

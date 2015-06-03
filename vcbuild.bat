@@ -127,14 +127,14 @@ if errorlevel 1 goto exit
 @rem Skip signing if the `nosign` option was specified.
 if defined nosign goto licensertf
 
-signtool sign /a /d "io.js" /t http://timestamp.globalsign.com/scripts/timestamp.dll Release\iojs.exe
+signtool sign /a /d "Node.js" /t http://timestamp.globalsign.com/scripts/timestamp.dll Release\node.exe
 if errorlevel 1 echo Failed to sign exe&goto exit
 
 :licensertf
 @rem Skip license.rtf generation if not requested.
 if not defined licensertf goto msi
 
-%config%\iojs tools\license2rtf.js < LICENSE > %config%\license.rtf
+%config%\node tools\license2rtf.js < LICENSE > %config%\license.rtf
 if errorlevel 1 echo Failed to generate license.rtf&goto exit
 
 :msi
@@ -146,12 +146,12 @@ if not defined NIGHTLY goto msibuild
 set NODE_VERSION=%NODE_VERSION%.%NIGHTLY%
 
 :msibuild
-echo Building iojs-%NODE_VERSION%
+echo Building node-%NODE_VERSION%
 msbuild "%~dp0tools\msvs\msi\nodemsi.sln" /m /t:Clean,Build /p:Configuration=%config% /p:Platform=%msiplatform% /p:NodeVersion=%NODE_VERSION% %noetw_msi_arg% %noperfctr_msi_arg% /clp:NoSummary;NoItemAndPropertyList;Verbosity=minimal /nologo
 if errorlevel 1 goto exit
 
 if defined nosign goto run
-signtool sign /a /d "io.js" /t http://timestamp.globalsign.com/scripts/timestamp.dll Release\iojs-v%NODE_VERSION%-%msiplatform%.msi
+signtool sign /a /d "Node.js" /t http://timestamp.globalsign.com/scripts/timestamp.dll Release\node-v%NODE_VERSION%-%msiplatform%.msi
 if errorlevel 1 echo Failed to sign msi&goto exit
 
 :run
@@ -160,7 +160,7 @@ if errorlevel 1 echo Failed to sign msi&goto exit
 :build-node-weak
 @rem Build node-weak if required
 if "%buildnodeweak%"=="" goto run-tests
-"%config%\iojs" deps\npm\node_modules\node-gyp\bin\node-gyp rebuild --directory="%~dp0test\gc\node_modules\weak" --nodedir="%~dp0."
+"%config%\node" deps\npm\node_modules\node-gyp\bin\node-gyp rebuild --directory="%~dp0test\gc\node_modules\weak" --nodedir="%~dp0."
 if errorlevel 1 goto build-node-weak-failed
 goto run-tests
 
@@ -181,7 +181,7 @@ goto jslint
 :jslint
 if not defined jslint goto exit
 echo running jslint
-%config%\iojs tools\eslint\bin\eslint.js src lib test --reset --quiet
+%config%\node tools\eslint\bin\eslint.js src lib test --reset --quiet
 goto exit
 
 :create-msvs-files-failed
@@ -207,5 +207,5 @@ rem ***************
 :getnodeversion
 set NODE_VERSION=
 for /F "usebackq tokens=*" %%i in (`python "%~dp0tools\getnodeversion.py"`) do set NODE_VERSION=%%i
-if not defined NODE_VERSION echo Cannot determine current version of io.js & exit /b 1
+if not defined NODE_VERSION echo Cannot determine current version of Node.js & exit /b 1
 goto :EOF

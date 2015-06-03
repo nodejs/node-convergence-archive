@@ -9,7 +9,7 @@ linux-x86_64 solaris-x86-gcc solaris64-x86_64-gcc
 CFG = opensslconf.h
 SRC_CFG = ../openssl/crypto/$(CFG)
 BACKUP_FILES = ../openssl/Makefile ../openssl/Makefile.bak $(SRC_CFG)
-BACKUP_EXT = iojsbackup
+BACKUP_EXT = nodebackup
 
 # OPENSSL_CPUID_OBJ is defined in openssl.gypi for use --openssl-no-asm
 CPUIDFIX = 's/\#define OPENSSL_CPUID_OBJ$$//;'
@@ -28,7 +28,7 @@ $(ARCHS):
 # The current openssl release does not use RC4 asm since it explicitly
 # specified as `$asm=~s/rc4\-[^:]+//;` in
 # https://github.com/openssl/openssl/blob/OpenSSL_1_0_1-stable/Configure#L584
-# But iojs has used RC4 asm on MacOS for long time. Fix type of RC4_INT
+# But node has used RC4 asm on MacOS for long time. Fix type of RC4_INT
 # into `unsigned int` in opensslconf.h of darwin64-x86_64-cc to work on
 # the RC4 asm.
 fixdarwin64:

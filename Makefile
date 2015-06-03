@@ -10,9 +10,9 @@ PREFIX ?= /usr/local
 EXEEXT := $(shell $(PYTHON) -c \
 		"import sys; print('.exe' if sys.platform == 'win32' else '')")
 
-NODE ?= ./iojs$(EXEEXT)
-NODE_EXE = iojs$(EXEEXT)
-NODE_G_EXE = iojs_g$(EXEEXT)
+NODE ?= ./node$(EXEEXT)
+NODE_EXE = node$(EXEEXT)
+NODE_G_EXE = node_g$(EXEEXT)
 
 # Default to verbose builds.
 # To do quiet/pretty builds, run `make V=` to set V to an empty string,
@@ -208,7 +208,7 @@ ifdef NIGHTLY
 TAG = nightly-$(NIGHTLY)
 FULLVERSION=$(VERSION)-$(TAG)
 endif
-TARNAME=iojs-$(FULLVERSION)
+TARNAME=node-$(FULLVERSION)
 TARBALL=$(TARNAME).tar
 BINARYNAME=$(TARNAME)-$(PLATFORM)-$(ARCH)
 BINARYTAR=$(BINARYNAME).tar
@@ -217,9 +217,9 @@ XZ_COMPRESSION ?= 9
 PKG=out/$(TARNAME).pkg
 PACKAGEMAKER ?= /Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker
 
-PKGSRC=iojs-$(DESTCPU)-$(RAWVER).tgz
+PKGSRC=node-$(DESTCPU)-$(RAWVER).tgz
 ifdef NIGHTLY
-PKGSRC=iojs-$(DESTCPU)-$(RAWVER)-$(TAG).tgz
+PKGSRC=node-$(DESTCPU)-$(RAWVER)-$(TAG).tgz
 endif
 
 dist: doc $(TARBALL) $(PKG)
@@ -259,13 +259,13 @@ $(PKG): release-only
 	$(PYTHON) ./configure --dest-cpu=x64 --tag=$(TAG)
 	$(MAKE) install V=$(V) DESTDIR=$(PKGDIR)
 	SIGN="$(APP_SIGN)" PKGDIR="$(PKGDIR)" bash tools/osx-codesign.sh
-	lipo $(PKGDIR)/32/usr/local/bin/iojs \
-		$(PKGDIR)/usr/local/bin/iojs \
-		-output $(PKGDIR)/usr/local/bin/iojs-universal \
+	lipo $(PKGDIR)/32/usr/local/bin/node \
+		$(PKGDIR)/usr/local/bin/node \
+		-output $(PKGDIR)/usr/local/bin/node-universal \
 		-create
-	mv $(PKGDIR)/usr/local/bin/iojs-universal $(PKGDIR)/usr/local/bin/iojs
+	mv $(PKGDIR)/usr/local/bin/node-universal $(PKGDIR)/usr/local/bin/node
 	rm -rf $(PKGDIR)/32
-	cat tools/osx-pkg.pmdoc/index.xml.tmpl | sed -e 's|__iojsversion__|'$(FULLVERSION)'|g' | sed -e 's|__npmversion__|'$(NPMVERSION)'|g' > tools/osx-pkg.pmdoc/index.xml
+	cat tools/osx-pkg.pmdoc/index.xml.tmpl | sed -e 's|__nodeversion__|'$(FULLVERSION)'|g' | sed -e 's|__npmversion__|'$(NPMVERSION)'|g' > tools/osx-pkg.pmdoc/index.xml
 	$(PACKAGEMAKER) \
 		--id "org.nodejs.Node" \
 		--doc tools/osx-pkg.pmdoc \
@@ -275,7 +275,7 @@ $(PKG): release-only
 $(TARBALL): release-only $(NODE_EXE) doc
 	git checkout-index -a -f --prefix=$(TARNAME)/
 	mkdir -p $(TARNAME)/doc/api
-	cp doc/iojs.1 $(TARNAME)/doc/iojs.1
+	cp doc/node.1 $(TARNAME)/doc/node.1
 	cp -r out/doc/api/* $(TARNAME)/doc/api/
 	rm -rf $(TARNAME)/deps/v8/{test,samples,tools/profviz} # too big
 	rm -rf $(TARNAME)/doc/images # too big
