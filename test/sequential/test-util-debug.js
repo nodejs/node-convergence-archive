@@ -32,7 +32,9 @@ function test(environ, shouldWrite) {
     // env variable is passed to the child to make the test pass.
     // this is fixed in the next version of lttng (2.7+), so we can
     // remove it at sometime in the future.
-    env: { NODE_DEBUG: environ, HOME: process.env.HOME }
+    env: common.extendEnv({
+      NODE_DEBUG: environ
+    })
   });
 
   expectErr = expectErr.split('%PID%').join(child.pid);
