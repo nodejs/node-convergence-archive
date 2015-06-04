@@ -54,10 +54,9 @@ function parent() {
   var clientExited = false;
   var serverListened = false;
   var opt = {
-    env: {
-      NODE_DEBUG: 'net',
-      NODE_COMMON_PORT: process.env.NODE_COMMON_PORT,
-    }
+    env: common.extendEnv({
+      NODE_DEBUG: 'net'
+    })
   };
 
   process.on('exit', function() {
@@ -105,4 +104,3 @@ function parent() {
     });
   }
 }
-
