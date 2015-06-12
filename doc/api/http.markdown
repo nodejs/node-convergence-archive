@@ -219,12 +219,11 @@ no limit will be applied.
 * `msecs` {Number}
 * `callback` {Function}
 
-Sets the timeout value for sockets, and emits a `'timeout'` event on
-the Server object, passing the socket as an argument, if a timeout
-occurs.
+The same as `server.timeout = msecs` plus setting `callback` as the handler for the `'timeout'` event on
+the Server object.
 
 If there is a `'timeout'` event listener on the Server object, then it
-will be called with the timed-out socket as an argument.
+is be called with the timed-out socket as an argument when a timeout occurs.
 
 By default, the Server's timeout value is 2 minutes, and sockets are
 destroyed automatically if they time out.  However, if you assign a
