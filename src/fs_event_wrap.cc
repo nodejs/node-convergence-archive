@@ -31,6 +31,8 @@ class FSEventWrap: public HandleWrap {
   static void Start(const FunctionCallbackInfo<Value>& args);
   static void Close(const FunctionCallbackInfo<Value>& args);
 
+  size_t self_size() const override { return sizeof(*this); }
+
  private:
   FSEventWrap(Environment* env, Handle<Object> object);
   virtual ~FSEventWrap() override;
@@ -86,7 +88,7 @@ void FSEventWrap::Start(const FunctionCallbackInfo<Value>& args) {
   FSEventWrap* wrap = Unwrap<FSEventWrap>(args.Holder());
 
   if (args.Length() < 1 || !args[0]->IsString()) {
-    return env->ThrowTypeError("Bad arguments");
+    return env->ThrowTypeError("filename must be a valid string");
   }
 
   node::Utf8Value path(env->isolate(), args[0]);

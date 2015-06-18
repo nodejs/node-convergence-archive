@@ -269,37 +269,52 @@ writeTest.write('e', 3, 'ascii');
 writeTest.write('j', 'ascii', 4);
 assert.equal(writeTest.toString(), 'nodejs');
 
+// ASCII slice test
+
 var asciiString = 'hello world';
 var offset = 100;
-for (var j = 0; j < 500; j++) {
 
-  for (var i = 0; i < asciiString.length; i++) {
-    b[i] = asciiString.charCodeAt(i);
-  }
-  var asciiSlice = b.toString('ascii', 0, asciiString.length);
-  assert.equal(asciiString, asciiSlice);
+for (var i = 0; i < asciiString.length; i++) {
+  b[i] = asciiString.charCodeAt(i);
+}
+var asciiSlice = b.toString('ascii', 0, asciiString.length);
+assert.equal(asciiString, asciiSlice);
 
-  var written = b.write(asciiString, offset, 'ascii');
-  assert.equal(asciiString.length, written);
-  var asciiSlice = b.toString('ascii', offset, offset + asciiString.length);
-  assert.equal(asciiString, asciiSlice);
+var written = b.write(asciiString, offset, 'ascii');
+assert.equal(asciiString.length, written);
+var asciiSlice = b.toString('ascii', offset, offset + asciiString.length);
+assert.equal(asciiString, asciiSlice);
 
-  var sliceA = b.slice(offset, offset + asciiString.length);
-  var sliceB = b.slice(offset, offset + asciiString.length);
-  for (var i = 0; i < asciiString.length; i++) {
-    assert.equal(sliceA[i], sliceB[i]);
-  }
-
-  // TODO utf8 slice tests
+var sliceA = b.slice(offset, offset + asciiString.length);
+var sliceB = b.slice(offset, offset + asciiString.length);
+for (var i = 0; i < asciiString.length; i++) {
+  assert.equal(sliceA[i], sliceB[i]);
 }
 
+// UTF-8 slice test
 
-for (var j = 0; j < 100; j++) {
-  var slice = b.slice(100, 150);
-  assert.equal(50, slice.length);
-  for (var i = 0; i < 50; i++) {
-    assert.equal(b[100 + i], slice[i]);
-  }
+var utf8String = '¡hέlló wôrld!';
+var offset = 100;
+
+b.write(utf8String, 0, Buffer.byteLength(utf8String), 'utf8');
+var utf8Slice = b.toString('utf8', 0, Buffer.byteLength(utf8String));
+assert.equal(utf8String, utf8Slice);
+
+var written = b.write(utf8String, offset, 'utf8');
+assert.equal(Buffer.byteLength(utf8String), written);
+utf8Slice = b.toString('utf8', offset, offset + Buffer.byteLength(utf8String));
+assert.equal(utf8String, utf8Slice);
+
+var sliceA = b.slice(offset, offset + Buffer.byteLength(utf8String));
+var sliceB = b.slice(offset, offset + Buffer.byteLength(utf8String));
+for (var i = 0; i < Buffer.byteLength(utf8String); i++) {
+  assert.equal(sliceA[i], sliceB[i]);
+}
+
+var slice = b.slice(100, 150);
+assert.equal(50, slice.length);
+for (var i = 0; i < 50; i++) {
+  assert.equal(b[100 + i], slice[i]);
 }
 
 
@@ -316,7 +331,6 @@ var c = b.slice(0, 4);
 var d = c.slice(0, 2);
 assert.equal(b, c.parent);
 assert.equal(b, d.parent);
-
 
 
 // Bug regression test

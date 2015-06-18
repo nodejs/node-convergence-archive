@@ -41,6 +41,11 @@
 namespace node {
 namespace crypto {
 
+enum CheckResult {
+  CHECK_CERT_REVOKED = 0,
+  CHECK_OK = 1
+};
+
 extern int VerifyCallback(int preverify_ok, X509_STORE_CTX* ctx);
 
 extern X509_STORE* root_cert_store;
@@ -302,6 +307,8 @@ class Connection : public SSLWrap<Connection>, public AsyncWrap {
   v8::Persistent<v8::Object> sniObject_;
   v8::Persistent<v8::String> servername_;
 #endif
+
+  size_t self_size() const override { return sizeof(*this); }
 
  protected:
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
@@ -696,6 +703,8 @@ class Certificate : public AsyncWrap {
   bool VerifySpkac(const char* data, unsigned int len);
   const char* ExportPublicKey(const char* data, int len);
   const char* ExportChallenge(const char* data, int len);
+
+  size_t self_size() const override { return sizeof(*this); }
 
  protected:
   static void New(const v8::FunctionCallbackInfo<v8::Value>& args);

@@ -88,6 +88,11 @@ parser.add_option("--openssl-no-asm",
     dest="openssl_no_asm",
     help="Do not build optimized assembly for OpenSSL")
 
+parser.add_option('--openssl-fips',
+    action='store',
+    dest='openssl_fips',
+    help='Build OpenSSL using FIPS canister .o file in supplied folder')
+
 shared_optgroup.add_option('--shared-http-parser',
     action='store_true',
     dest='shared_http_parser',
@@ -359,12 +364,6 @@ def pkg_config(pkg):
       return (None, None, None)
     retval += (val,)
   return retval
-
-
-def format_libraries(list):
-  """Returns string of space separated libraries"""
-  libraries = list.split(',')
-  return ' '.join('-l{0}'.format(i) for i in libraries)
 
 
 def try_check_compiler(cc, lang):
@@ -684,29 +683,24 @@ def configure_library(lib, output):
   output['variables']['node_' + shared_lib] = b(getattr(options, shared_lib))
 
   if getattr(options, shared_lib):
-    default_cflags = getattr(options, shared_lib + '_includes')
-    default_lib = format_libraries(getattr(options, shared_lib + '_libname'))
-    default_libpath = getattr(options, shared_lib + '_libpath')
-    if default_libpath:
-      default_libpath = '-L' + default_libpath
     (pkg_libs, pkg_cflags, pkg_libpath) = pkg_config(lib)
-    # Remove empty strings from the list of include_dirs
+
     if pkg_cflags:
-      cflags = filter(None, map(str.strip, pkg_cflags.split('-I')))
-    else:
-      cflags = default_cflags
-    libs = pkg_libs if pkg_libs else default_lib
-    libpath = pkg_libpath if pkg_libpath else default_libpath
+      output['include_dirs'] += (
+          filter(None, map(str.strip, pkg_cflags.split('-I'))))
 
     # libpath needs to be provided ahead libraries
-    if libpath:
-      output['libraries'] += [libpath]
-    if libs:
-      # libs passed to the linker cannot contain spaces.
-      # (libpath on the other hand can)
-      output['libraries'] += libs.split()
-    if cflags:
-      output['include_dirs'] += [cflags]
+    if pkg_libpath:
+      output['libraries'] += (
+          filter(None, map(str.strip, pkg_cflags.split('-L'))))
+
+    default_libs = getattr(options, shared_lib + '_libname')
+    default_libs = map('-l{0}'.format, default_libs.split(','))
+
+    if pkg_libs:
+      output['libraries'] += pkg_libs.split()
+    elif default_libs:
+      output['libraries'] += default_libs
 
 
 def configure_v8(o):
@@ -720,6 +714,16 @@ def configure_openssl(o):
   o['variables']['node_use_openssl'] = b(not options.without_ssl)
   o['variables']['node_shared_openssl'] = b(options.shared_openssl)
   o['variables']['openssl_no_asm'] = 1 if options.openssl_no_asm else 0
+  if options.openssl_fips:
+    o['variables']['openssl_fips'] = options.openssl_fips
+    fips_dir = os.path.join(root_dir, 'deps', 'openssl', 'fips')
+    fips_ld = os.path.abspath(os.path.join(fips_dir, 'fipsld'))
+    o['make_global_settings'] = [
+      ['LINK', fips_ld + ' <(openssl_fips)/bin/fipsld'],
+    ]
+  else:
+    o['variables']['openssl_fips'] = ''
+
 
   if options.without_ssl:
     return
@@ -1025,10 +1029,21 @@ configure_fullystatic(output)
 # move everything else to target_defaults
 variables = output['variables']
 del output['variables']
+
+# make_global_settings should be a root level element too
+if 'make_global_settings' in output:
+  make_global_settings = output['make_global_settings']
+  del output['make_global_settings']
+else:
+  make_global_settings = False
+
 output = {
   'variables': variables,
-  'target_defaults': output
+  'target_defaults': output,
 }
+if make_global_settings:
+  output['make_global_settings'] = make_global_settings
+
 pprint.pprint(output, indent=2)
 
 write('config.gypi', do_not_edit +

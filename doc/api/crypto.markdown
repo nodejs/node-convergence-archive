@@ -42,7 +42,7 @@ Returns an array with the names of the supported ciphers.
 Example:
 
     var ciphers = crypto.getCiphers();
-    console.log(ciphers); // ['AES-128-CBC', 'AES-128-CBC-HMAC-SHA1', ...]
+    console.log(ciphers); // ['aes-128-cbc', 'aes-128-ccm', ...]
 
 
 ## crypto.getHashes()
@@ -53,6 +53,16 @@ Example:
 
     var hashes = crypto.getHashes();
     console.log(hashes); // ['sha', 'sha1', 'sha1WithRSAEncryption', ...]
+
+
+## crypto.getCurves()
+
+Returns an array with the names of the supported elliptic curves.
+
+Example:
+
+    var curves = crypto.getCurves();
+    console.log(curves); // ['secp256k1', 'secp384r1', ...]
 
 
 ## crypto.createCredentials(details)
@@ -528,8 +538,11 @@ Example (obtaining a shared secret):
 
 ## crypto.createECDH(curve_name)
 
-Creates a Elliptic Curve (EC) Diffie-Hellman key exchange object using a
-predefined curve specified by `curve_name` string.
+Creates an Elliptic Curve (EC) Diffie-Hellman key exchange object using a
+predefined curve specified by the `curve_name` string. Use [getCurves()][] to
+obtain a list of available curve names. On recent releases,
+`openssl ecparam -list_curves` will also display the name and description of
+each available elliptic curve.
 
 ## Class: ECDH
 
@@ -763,6 +776,7 @@ temporary measure.
 
 [createCipher()]: #crypto_crypto_createcipher_algorithm_password
 [createCipheriv()]: #crypto_crypto_createcipheriv_algorithm_key_iv
+[getCurves()]: #crypto_crypto_getcurves
 [crypto.createDiffieHellman()]: #crypto_crypto_creatediffiehellman_prime_prime_encoding_generator_generator_encoding
 [tls.createSecureContext]: tls.html#tls_tls_createsecurecontext_details
 [diffieHellman.setPublicKey()]: #crypto_diffiehellman_setpublickey_public_key_encoding

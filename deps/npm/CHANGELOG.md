@@ -1,3 +1,98 @@
+### v2.11.2 (2015-06-04):
+
+Another small release this week, brought to you by the latest addition to the
+CLI team, [@zkat](https://github.com/zkat) (Hi, all!)
+
+Mostly small documentation tweaks and version updates. Oh! And `npm outdated`
+is actually sorted now. Rejoice!
+
+It's gonna be a while before we get another palindromic version number. Enjoy it
+while it lasts. :3
+
+#### QUALITY OF LIFE HAS NEVER BEEN BETTER
+
+* [`31aada4`](https://github.com/npm/npm/commit/31aada4ccc369c0903ff7f233f464955d12c6fe2)
+  [#8401](https://github.com/npm/npm/issues/8401) `npm outdated` output is just
+  that much nicer to consume now, due to sorting by name.
+  [@watilde](https://github.com/watilde)
+* [`458a919`](https://github.com/npm/npm/commit/458a91925d8b20c5e672ba71a86745aad654abaf)
+  [#8469](https://github.com/npm/npm/pull/8469) Explicitly set `cwd` for
+  `preversion`, `version`, and `postversion` scripts. This makes the scripts
+  findable relative to the root dir.
+  ([@alexkwolfe](https://github.com/alexkwolfe))
+* [`55d6d71`](https://github.com/npm/npm/commit/55d6d71562e979e745c9db88861cc39f99b9f3ec)
+  Ensure package name and version are included in display during `npm version`
+  lifecycle execution. Gets rid of those little `undefined`s in the console.
+  ([@othiym23](https://github.com/othiym23))
+
+#### WORDS HAVE NEVER BEEN QUITE THIS READABLE
+
+* [`3901e49`](https://github.com/npm/npm/commit/3901e4974c800e7f9fba4a5b2ff88da1126d5ef8)
+  [#8462](https://github.com/npm/npm/pull/8462) English apparently requires
+  correspondence between indefinite articles and attached nouns.
+  ([@Enet4](https://github.com/Enet4))
+* [`5a744e4`](https://github.com/npm/npm/commit/5a744e4b143ef7b2f50c80a1d96fdae4204d452b)
+  [#8421](https://github.com/npm/npm/pull/8421) The effect of `npm prune`'s
+  `--production` flag and how to use it have been documented a bit better.
+  ([@foiseworth](https://github.com/foiseworth))
+* [`eada625`](https://github.com/npm/npm/commit/eada625993485f0a2c5324b06f02bfa0a95ce4bc)
+  We've updated our `.mailmap` and `AUTHORS` files to make sure credit is given
+  where credit is due. ([@othiym23](https://github.com/othiym23))
+
+#### VERSION NUMBERS HAVE NEVER BEEN BIGGER
+
+* [`c929fd1`](https://github.com/npm/npm/commit/c929fd1d0604b5878ed05706447e078d3e41f5b3)
+  `readable-steam@1.1.13`: Manually installed `v1.1.13` (steams3) to make deduping more reliable on `npm@<3`.
+  ([@othiym23](https://github.com/othiym23))
+* [`a9b4b78`](https://github.com/npm/npm/commit/a9b4b78dcc85571fd1cdd737903f7f37a5e6a755)
+  `request@2.57.0`: Replace dependency on IncomingMessage's `.client` with `.socket` as the former was deprecated in 2.2.0.
+  ([@othiym23](https://github.com/othiym23))
+* [`4b5e557`](https://github.com/npm/npm/commit/4b5e557a23cdefd521ad154111e3d4dcc81f1cdb)
+  `abbrev@1.0.7`: Better testing, with coverage.
+  ([@othiym23](https://github.com/othiym23))
+* [`561affe`](https://github.com/npm/npm/commit/561affee21df9bbea5a47298f2452f533be8f359)
+  `semver@4.3.6`: .npmignore added for less cruft, and better testing, with coverage.
+  ([@othiym23](https://github.com/othiym23))
+* [`60aef3c`](https://github.com/npm/npm/commit/60aef3cf5d84d757752db3eb8ede2cb385469e7b)
+  `graceful-fs@3.0.8`: io.js fixes.
+  ([@zkat](https://github.com/zkat))
+* [`f8bd453`](https://github.com/npm/npm/commit/f8bd453b1a1c46ba7666cb166595e8a011eae443)
+  `config-chain@1.1.9`: Added MIT license to package.json
+  ([@zkat](https://github.com/zkat))
+
+### v2.11.1 (2015-05-28):
+
+This release brought to you from poolside at the Omni Amelia Island Resort and
+JSConf 2015, which is why it's so tiny.
+
+#### CONFERENCE WIFI CAN'T STOP THESE BUG FIXES
+
+* [`cf109a6`](https://github.com/npm/npm/commit/cf109a682f38a059a994da953d5c1b4aaece5e2f)
+  [#8381](https://github.com/npm/npm/issues/8381) Documented a subtle gotcha
+  with `.npmrc`, which is that it needs to have its permissions set such that
+  only the owner can read or write the file.
+  ([@colakong](https://github.com/colakong))
+* [`180da67`](https://github.com/npm/npm/commit/180da67c9fa53103d625e2f031626c2453c7ebcd)
+  [#8365](https://github.com/npm/npm/issues/8365) Git 2.3 adds support for
+  `GIT_SSH_COMMAND`, which allows you to pass an explicit git command (with,
+  for example, a specific identity passed in on the command line).
+    ([@nmalaguti](https://github.com/nmalaguti))
+
+#### MY (VIRGIN) PINA COLADA IS GETTING LOW, BETTER UPGRADE THESE DEPENDENCIES
+
+* [`b72de41`](https://github.com/npm/npm/commit/b72de41c5cc9f0c46d3fa8f062c75bd273641474)
+  `node-gyp@2.0.0`: Use a newer version of `gyp`, and generally improve support
+  for Visual Studios and Windows.
+    ([@TooTallNate](https://github.com/TooTallNate))
+* [`8edbe21`](https://github.com/npm/npm/commit/8edbe210af41e8f248f5bb92c72de92f54fda3b1)
+  `node-gyp@2.0.1`: Don't crash when Python's version doesn't parse as valid
+  semver. ([@TooTallNate](https://github.com/TooTallNate))
+* [`ba0e0a8`](https://github.com/npm/npm/commit/ba0e0a845a4f29717aba566b416a27d1a22f5d08)
+  `glob@5.0.10`: Add coverage to tests. ([@isaacs](https://github.com/isaacs))
+* [`7333701`](https://github.com/npm/npm/commit/7333701b5d4f01673f37d64992c63c4e15864d6d)
+  `request@2.56.0`: Bug fixes and dependency upgrades.
+  ([@simov](https://github.com/simov))
+
 ### v2.11.0 (2015-05-21):
 
 For the first time in a very long time, we've added new events to the life
