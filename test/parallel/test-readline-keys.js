@@ -45,9 +45,11 @@ function addTest(sequences, expectedKeys) {
 }
 
 // regular alphanumerics
-addTest('io.JS', [
-  { name: 'i', sequence: 'i' },
+addTest('Node.JS', [
+  { name: 'n', sequence: 'N', shift: true },
   { name: 'o', sequence: 'o' },
+  { name: 'd', sequence: 'd' },
+  { name: 'e', sequence: 'e' },
   undefined, // emitted as `emit('keypress', '.', undefined)`
   { name: 'j', sequence: 'J', shift: true },
   { name: 's', sequence: 'S', shift: true },

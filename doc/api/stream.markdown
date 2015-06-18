@@ -3,7 +3,7 @@
     Stability: 2 - Stable
 
 A stream is an abstract interface implemented by various objects in
-io.js.  For example a [request to an HTTP
+Node.js.  For example a [request to an HTTP
 server](http.html#http_http_incomingmessage) is a stream, as is
 [stdout][]. Streams are readable, writable, or both. All streams are
 instances of [EventEmitter][]
@@ -47,8 +47,8 @@ streams in your programs.  If you **are** implementing streaming
 interfaces in your own program, please also refer to
 [API for Stream Implementors][] below.
 
-Almost all io.js programs, no matter how simple, use Streams in some
-way.  Here is an example of using Streams in an io.js program:
+Almost all Node.js programs, no matter how simple, use Streams in some
+way.  Here is an example of using Streams in an Node.js program:
 
 ```javascript
 var http = require('http');
@@ -461,13 +461,13 @@ Versions of Node.js prior to v0.10 had streams that did not implement the
 entire Streams API as it is today.  (See "Compatibility" below for
 more information.)
 
-If you are using an older io.js library that emits `'data'` events and
+If you are using an older Node.js library that emits `'data'` events and
 has a [`pause()`][] method that is advisory only, then you can use the
 `wrap()` method to create a [Readable][] stream that uses the old stream
 as its data source.
 
 You will very rarely ever need to call this function, but it exists
-as a convenience for interacting with old io.js programs and libraries.
+as a convenience for interacting with old Node.js programs and libraries.
 
 For example:
 
@@ -1235,7 +1235,7 @@ simply by using the higher level [Transform][] stream class, similar to
 the `parseHeader` and `SimpleProtocol v1` examples above.
 
 In this example, rather than providing the input as an argument, it
-would be piped into the parser, which is a more idiomatic io.js stream
+would be piped into the parser, which is a more idiomatic Node.js stream
 approach.
 
 ```javascript
@@ -1425,7 +1425,7 @@ stream is not currently reading, then calling `read(0)` will trigger
 a low-level `_read` call.
 
 There is almost never a need to do this.  However, you will see some
-cases in io.js's internals where this is done, particularly in the
+cases in Node.js's internals where this is done, particularly in the
 Readable stream class internals.
 
 ### `stream.push('')`
@@ -1539,7 +1539,7 @@ return value from `stream.read()` indicates that there is no more
 data, and [`stream.push(null)`][] will signal the end of stream data
 (`EOF`).
 
-No streams in io.js core are object mode streams.  This pattern is only
+No streams in Node.js core are object mode streams.  This pattern is only
 used by userland streaming libraries.
 
 You should set `objectMode` in your stream child class constructor on

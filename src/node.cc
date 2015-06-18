@@ -3056,11 +3056,11 @@ static bool ParseDebugOpt(const char* arg) {
 }
 
 static void PrintHelp() {
-  printf("Usage: iojs [options] [ -e script | script.js ] [arguments] \n"
-         "       iojs debug script.js [arguments] \n"
+  printf("Usage: node [options] [ -e script | script.js ] [arguments] \n"
+         "       node debug script.js [arguments] \n"
          "\n"
          "Options:\n"
-         "  -v, --version        print io.js version\n"
+         "  -v, --version        print Node.js version\n"
          "  -e, --eval script    evaluate script\n"
          "  -p, --print          evaluate script and print result\n"
          "  -i, --interactive    always enter the REPL even if stdin\n"
@@ -3097,7 +3097,7 @@ static void PrintHelp() {
 #endif
 #endif
          "\n"
-         "Documentation can be found at https://iojs.org/\n");
+         "Documentation can be found at https://nodejs.org/\n");
 }
 
 
