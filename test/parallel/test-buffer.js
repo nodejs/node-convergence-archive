@@ -1172,3 +1172,7 @@ Buffer.poolSize = ps;
 assert.throws(function() {
   Buffer(10).copy();
 });
+
+var b = new Buffer(1).fill(1);
+assert.equal(b.readBits(0, 0, 4), 1);
+assert.equal(b.readBits(0, 4, 4), 0);
