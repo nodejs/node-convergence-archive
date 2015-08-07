@@ -1216,9 +1216,7 @@ static void CaresTimerClose(Environment* env,
 }
 
 
-static void Initialize(Handle<Object> target,
-                       Handle<Value> unused,
-                       Handle<Context> context) {
+static void Initialize(Local<Object> target, Local<Context> context) {
   Environment* env = Environment::GetCurrent(context);
 
   int r = ares_library_init(ARES_LIB_INIT_ALL);
@@ -1292,6 +1290,8 @@ static void Initialize(Handle<Object> target,
 }
 
 }  // namespace cares_wrap
+
 }  // namespace node
 
-NODE_MODULE_CONTEXT_AWARE_BUILTIN(cares_wrap, node::cares_wrap::Initialize)
+NODE_MODULE_BUILTIN(cares_wrap, node::cares_wrap::Initialize)
+

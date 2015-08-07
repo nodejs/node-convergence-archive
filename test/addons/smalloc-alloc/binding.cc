@@ -21,7 +21,7 @@ void HasExternalData(const FunctionCallbackInfo<Value>& args) {
       node::smalloc::HasExternalData(args.GetIsolate(), args[0].As<Object>()));
 }
 
-void init(Handle<Object> target) {
+void init(Local<Object> target) {
   NODE_SET_METHOD(target, "alloc", Alloc);
   NODE_SET_METHOD(target, "dispose", Dispose);
   NODE_SET_METHOD(target, "hasExternalData", HasExternalData);

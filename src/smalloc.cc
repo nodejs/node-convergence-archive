@@ -607,9 +607,7 @@ bool HasExternalData(Isolate* isolate, Local<Object> obj) {
 }
 
 
-void Initialize(Handle<Object> exports,
-                Handle<Value> unused,
-                Handle<Context> context) {
+void Initialize(Local<Object> exports, Local<Context> context) {
   Environment* env = Environment::GetCurrent(context);
   Isolate* isolate = env->isolate();
 
@@ -652,4 +650,4 @@ void Initialize(Handle<Object> exports,
 }  // namespace smalloc
 }  // namespace node
 
-NODE_MODULE_CONTEXT_AWARE_BUILTIN(smalloc, node::smalloc::Initialize)
+NODE_MODULE_BUILTIN(smalloc, node::smalloc::Initialize)

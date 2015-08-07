@@ -558,10 +558,7 @@ const struct http_parser_settings Parser::settings = {
 };
 
 
-void InitHttpParser(Handle<Object> target,
-                    Handle<Value> unused,
-                    Handle<Context> context,
-                    void* priv) {
+void InitHttpParser(Local<Object> target, Local<Context> context) {
   Environment* env = Environment::GetCurrent(context);
   Local<FunctionTemplate> t = env->NewFunctionTemplate(Parser::New);
   t->InstanceTemplate()->SetInternalFieldCount(1);
@@ -600,4 +597,4 @@ void InitHttpParser(Handle<Object> target,
 
 }  // namespace node
 
-NODE_MODULE_CONTEXT_AWARE_BUILTIN(http_parser, node::InitHttpParser)
+NODE_MODULE_BUILTIN(http_parser, node::InitHttpParser)
